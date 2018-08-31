@@ -74,15 +74,52 @@
         .Mainfoot {
             clear: both;
         }
-        .el-menu-item {
-            width:calc(100% - 10px);
+        /*.el-tabs__nav {
+            border-radius:0;
+        }*/
+        .el-tabs--card > .el-tabs__header .el-tabs__nav {
+            border-radius: 0;
+        }
+        /*.el-tabs__item.is-active {
+            color: white;
+        }
+        .el-tabs__item {
+            background-color: aqua;
+            border: 0;
+            color: black;
+        }
+            .el-tabs__item:hover {
+                color: black;
+            }*/
+        .el-tabs {
+            height:calc(100% - 56px);
+        }
+        .el-tabs__content {
+            height:100%;
         }
     </style>
+
+    <script type="text/x-template" id="NavMenu">
+        <div>
+            <template v-for="(v,i) in model">
+                <el-menu-item  v-if="v.children==null||v.children.length==0" :index="v.NavId">
+                    <span><i v-if="v.Icon!=''" :class="v.Icon"></i>{{v.NavName}}</span>
+                </el-menu-item>
+                <el-submenu v-else :index="v.NavId">
+                    <template slot="title">
+                        <i v-if="v.Icon!=''" :class="v.Icon"></i>
+                        <span>{{v.NavName}}</span>
+                    </template>
+                    <cbb :model="v.children"></cbb>
+                </el-submenu>
+            </template>
+        </div>
+    </script>
 </head>
 <body>
     <div id="App">
         <div class="HeadDiv">
-
+       
         </div>
         <div class="MainDiv">
             <div class="MainLeft">
@@ -94,30 +131,17 @@
                          text-color="#fff"
                          active-text-color="#ffd04b"
                          style="border-right:0">
-                    <template v-for="(v,i) in MenuList">
-                        <el-submenu :index="v.NavId">
-                            <template slot="title">
-                                <i v-if="v.Icon!=''" :class="v.Icon"></i>
-                                <span>{{v.NavName}}</span>
-                            </template>
-
-                            <template v-if="v.NavId=='1'">
-                                <el-menu-item index="1-1">选项1</el-menu-item>
-                                <el-menu-item index="1-2">选项2</el-menu-item>
-                            </template>
-
-                        </el-submenu>
-                    </template>
+                    <cbb  :model="MenuList"></cbb>
                 </el-menu>
             </div>
             <div class="MainRight">
                 <div class="MianContent" id="MianContent">
-                    <el-tabs  v-model="editableTabsValue2" type="card" closable @@tab-remove="removeTab">
-                        <el-tab-pane v-for="(item, index) in editableTabs2"
+                    <el-tabs v-model="editableTabsValue" type="card" closable @@tab-remove="removeTab">
+                        <el-tab-pane style="height:100%" v-for="(item, index) in editableTabs"
                                      :key="item.name"
                                      :label="item.title"
                                      :name="item.name">
-                            {{item.content}}
+                            <iframe style="border:0;width:100%;height:100%" :src="item.content"></iframe>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
@@ -131,16 +155,26 @@
 
 </html>
 <script>
-  
+    Vue.component('cbb', {
+        // camelCase in JavaScript
+        props: ['model'],
+        template: '#NavMenu'
+    })
     var $app = new Vue({
         el: "#App",
+        //components: {
+        //    "cbb": Vue.extend({
+        //        props: ['model'],
+        //        template: '#NavMenu'
+        //    })
+        //},
         data: {
             MenuList: [],
-            editableTabsValue2: '2',
-            editableTabs2: [{
+            editableTabsValue: '2',
+            editableTabs: [{
                 title: 'Tab 1',
                 name: '1',
-                content: 'Tab 1 content'
+                content: 'https://www.baidu.com'
             }, {
                 title: 'Tab 2',
                 name: '2',
@@ -155,23 +189,32 @@
             handleClose() {
 
             },
+            //选择菜单项触发
             addTab(index, indexPath) {
-                let item = this.MenuList.filter(function (v) {
-                    return v.NavId == index;
-                })[0];
-               // let newTabName = ++this.tabIndex + '';
-                this.editableTabs2.push({
+                let item = getMenu(this.MenuList, index);
+                let temp;
+                this.editableTabs.forEach(function (tab, index) {
+                    if (item.NavId == tab.name) {
+                        temp = tab;
+                    }
+                })
+                if (temp != null) {
+                    this.editableTabsValue = temp.name;
+                    return;
+                }
+                this.editableTabs.push({
                     title: item.NavName,
                     name: item.NavId,
-                    content: item.NavName+' Tab content'
+                    content: item.Url
                 });
-                this.editableTabsValue2 = item.NavId;
+                this.editableTabsValue = item.NavId;
             },
+            //移除标签触发
             removeTab(targetName) {
-                let tabs = this.editableTabs2;
-                let activeName = this.editableTabsValue2;
+                let tabs = this.editableTabs;
+                let activeName = this.editableTabsValue;
                 if (activeName === targetName) {
-                    tabs.forEach((tab, index) => {
+                    tabs.forEach(function (tab, index) {
                         if (tab.name === targetName) {
                             let nextTab = tabs[index + 1] || tabs[index - 1];
                             if (nextTab) {
@@ -180,15 +223,41 @@
                         }
                     });
                 }
-
-                this.editableTabsValue2 = activeName;
-                this.editableTabs2 = tabs.filter(tab => tab.name !== targetName);
+                this.editableTabsValue = activeName;
+                this.editableTabs = tabs.filter(tab => tab.name !== targetName);
             }
         }
     });
    
-    $app.MenuList = [{ NavName: "导航一", NavId: "1", Icon: "el-icon-location" },
-    { NavName: "导航二", NavId: "2", Icon: "el-icon-menu" },
-    { NavName: "导航三", NavId: "3", Icon: "el-icon-document" },
-        { NavName: "导航四", NavId: "4", Icon: "" }];
+    $app.MenuList =
+        [{
+            NavName: "导航一", NavId: "1", Icon: "el-icon-location",
+        children: [{ NavName: "导航1-1", NavId: "1-1", Icon: "el-icon-location", children: [{ NavName: "导航1-1-1", NavId: "1-1-1", Icon: "el-icon-location", Url: "https://www.baidu.com" }] }, { NavName: "导航1-2", NavId: "1-2", Icon: "el-icon-location", Url: "https://www.baidu.com" }]
+        },
+        {
+            NavName: "导航二", NavId: "2", Icon: "el-icon-menu",
+            children: [{ NavName: "导航2-1", NavId: "2-1", Icon: "el-icon-location" }, { NavName: "导航2-2", NavId: "2-2", Icon: "el-icon-location" }]
+        },
+        {
+            NavName: "导航三", NavId: "3", Icon: "el-icon-document",
+            children: [{ NavName: "导航3-1", NavId: "3-1", Icon: "el-icon-location" }, { NavName: "导航3-2", NavId: "3-2", Icon: "el-icon-location" }]
+        },
+            { NavName: "导航四", NavId: "4", Icon: "" }];
+
+    function getMenu(menuList, navId) {
+        var menu;
+        for (var i = 0; i < menuList.length; i++) {
+            var m = menuList[i];
+            if (menu != null) {
+                break;
+            }
+            if (m.NavId == navId) {
+                menu = m;
+            }
+            if (menu == null && m.children != null && m.children.length > 0) {
+                menu = getMenu(m.children, navId);
+            }
+        } 
+        return menu;
+    }
 </script>
