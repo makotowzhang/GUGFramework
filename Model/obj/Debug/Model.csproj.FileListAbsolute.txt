@@ -1,0 +1,13 @@
+H:\Framework\Model\obj\Debug\Model.csprojAssemblyReference.cache
+H:\Framework\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+H:\Framework\Model\bin\Debug\Model.dll
+H:\Framework\Model\bin\Debug\Model.pdb
+H:\Framework\Model\bin\Debug\Entity.dll
+H:\Framework\Model\bin\Debug\EntityFramework.dll
+H:\Framework\Model\bin\Debug\Entity.pdb
+H:\Framework\Model\bin\Debug\Entity.dll.config
+H:\Framework\Model\bin\Debug\EntityFramework.xml
+H:\Framework\Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+H:\Framework\Model\obj\Debug\Model.csproj.CopyComplete
+H:\Framework\Model\obj\Debug\Model.dll
+H:\Framework\Model\obj\Debug\Model.pdb

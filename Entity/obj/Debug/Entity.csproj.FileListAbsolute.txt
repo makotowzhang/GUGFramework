@@ -1,0 +1,14 @@
+H:\Framework\Entity\bin\Debug\Entity.dll.config
+H:\Framework\Entity\bin\Debug\Entity.dll
+H:\Framework\Entity\bin\Debug\Entity.pdb
+H:\Framework\Entity\bin\Debug\EntityFramework.dll
+H:\Framework\Entity\bin\Debug\EntityFramework.SqlServer.dll
+H:\Framework\Entity\bin\Debug\EntityFramework.xml
+H:\Framework\Entity\bin\Debug\EntityFramework.SqlServer.xml
+H:\Framework\Entity\bin\Debug\zh-Hans\EntityFramework.resources.dll
+H:\Framework\Entity\obj\Debug\Entity.csproj.CoreCompileInputs.cache
+H:\Framework\Entity\obj\Debug\Entity.csproj.CopyComplete
+H:\Framework\Entity\obj\Debug\Entity.dll
+H:\Framework\Entity\obj\Debug\Entity.pdb
+H:\Framework\Entity\obj\Debug\Entity.csprojAssemblyReference.cache
+H:\Framework\Entity\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll

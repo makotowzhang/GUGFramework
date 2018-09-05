@@ -149,19 +149,34 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CommonStyle.css" />
+    <Content Include="Content\iconfont\demo.css" />
+    <Content Include="Content\iconfont\demo_fontclass.html" />
+    <Content Include="Content\iconfont\demo_symbol.html" />
+    <Content Include="Content\iconfont\demo_unicode.html" />
+    <Content Include="Content\iconfont\iconfont.css" />
+    <Content Include="Content\iconfont\iconfont.js" />
+    <Content Include="Content\iconfont\iconfont.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Axios\axios.js" />
+    <Content Include="Scripts\Axios\axios.min.js" />
     <Content Include="Scripts\ElementUI\css\index.css" />
     <Content Include="Scripts\ElementUI\index.js" />
+    <Content Include="Scripts\Polyfill\polyfill.js" />
+    <Content Include="Scripts\Polyfill\polyfill.min.js" />
     <Content Include="Scripts\Vue\vue.common.js" />
     <Content Include="Scripts\Vue\vue.esm.browser.js" />
     <Content Include="Scripts\Vue\vue.esm.js" />
@@ -171,7 +186,9 @@
     <Content Include="Scripts\Vue\vue.runtime.esm.js" />
     <Content Include="Scripts\Vue\vue.runtime.js" />
     <Content Include="Scripts\Vue\vue.runtime.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -186,15 +203,32 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\iconfont\iconfont.eot" />
+    <Content Include="Content\iconfont\iconfont.ttf" />
+    <Content Include="Content\iconfont\iconfont.woff" />
     <None Include="packages.config" />
     <Content Include="Scripts\ElementUI\css\fonts\element-icons.ttf" />
     <Content Include="Scripts\ElementUI\css\fonts\element-icons.woff" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Welcome\Index.cshtml" />
+    <Content Include="Scripts\Axios\axios.map" />
+    <Content Include="Scripts\Axios\axios.min.map" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{62cb4c30-7513-4b7e-8581-52cacfc76834}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{0b51ae13-de95-4fc0-aab6-f2abcafebd9e}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,5 @@
+H:\Framework\Business\bin\Debug\Business.dll
+H:\Framework\Business\bin\Debug\Business.pdb
+H:\Framework\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
+H:\Framework\Business\obj\Debug\Business.dll
+H:\Framework\Business\obj\Debug\Business.pdb
